@@ -1,0 +1,100 @@
+.admin-election-manager {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.admin-election-manager h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.election-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.election-name {
+  font-weight: bold;
+  color: #222;
+}
+
+.manage-btn {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.manage-btn:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ✅ NEW: Create Election Form */
+.create-election-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.create-election-form input,
+.create-election-form select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.create-election-form button {
+  padding: 8px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-election-form button:hover {
+  background-color: #218838;
+}
+
+/* ✅ NEW: Delete Election Button */
+.delete-election-btn {
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-election-btn:hover {
+  background-color: #c82333;
+}
+
+/* ✅ Optional: success/info message */
+.message {
+  color: green;
+  text-align: center;
+  margin: 10px 0;
+}

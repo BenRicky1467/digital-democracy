@@ -1,0 +1,22 @@
+# Node modules (backend & frontend)
+node_modules/
+voting-frontend/node_modules/
+
+# Environment files
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
+.DS_Store
+
+# Build/Dist
+dist/
+build/
+
+# Others (optional: editor files)
+*.swp
+

@@ -1,0 +1,103 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+  }
+  
+  /* Container for the voting page */
+  .vote-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title */
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  /* Dropdown to select a candidate */
+  select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  select:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  /* Submit button */
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:disabled {
+    background-color: #b0bec5;
+    cursor: not-allowed;
+  }
+  
+  button:hover:enabled {
+    background-color: #2980b9;
+  }
+  
+  /* Feedback message */
+  p {
+    text-align: center;
+    font-size: 1rem;
+    color: #e74c3c;
+    margin-top: 20px;
+  }
+  
+  p.success {
+    color: #2ecc71;
+  }
+  
+  p.error {
+    color: #e74c3c;
+  }
+  
+  p.info {
+    color: #95a5a6;
+  }
+  
+  /* Responsive Styling */
+  @media screen and (max-width: 600px) {
+    .vote-container {
+      padding: 20px;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+    }
+  
+    select,
+    button {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  }
+  

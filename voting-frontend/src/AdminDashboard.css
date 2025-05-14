@@ -1,0 +1,54 @@
+/* Admin Dashboard Container */
+.admin-dashboard-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Button container for admin actions */
+.admin-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* General Button Style */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Create/Delete Election & Candidate Buttons */
+button.create-election-btn,
+button.delete-election-btn,
+button.delete-candidate-btn {
+  background-color: #4CAF50; /* Green base */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button.create-election-btn:hover,
+button.delete-election-btn:hover,
+button.delete-candidate-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+button.create-election-btn:focus,
+button.delete-election-btn:focus,
+button.delete-candidate-btn:focus {
+  outline: none;
+}
+
+/* Specific style for Delete buttons */
+button.delete-election-btn,
+button.delete-candidate-btn {
+  background-color: #f44336; /* Red */
+}
+
+button.delete-election-btn:hover,
+button.delete-candidate-btn:hover {
+  background-color: #e53935; /* Darker red on hover */
+}
