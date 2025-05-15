@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import './CandidateList.css';
+import { toast } from 'react-toastify'; // ✅ Toast import
 
 const CandidateList = ({ selectedElection }) => {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
   const [newCandidate, setNewCandidate] = useState({ name: '', faculty: '' });
 
   const token = localStorage.getItem('token');
@@ -24,19 +24,17 @@ const CandidateList = ({ selectedElection }) => {
   const fetchCandidates = async () => {
     if (!selectedElection) return;
     setLoading(true);
-    setMessage('');
 
     try {
       const res = await axios.get(
-  `http://localhost:3000/api/elections/${selectedElection}/candidates`,
-  {
-    headers: { Authorization: `Bearer ${token}` },
-  }
-);
-
+        `http://localhost:3000/api/elections/${selectedElection}/candidates`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setCandidates(res.data.candidates || []);
     } catch {
-      setMessage('❌ Failed to load candidates');
+      toast.error('❌ Failed to load candidates');
       setCandidates([]);
     } finally {
       setLoading(false);
@@ -50,7 +48,7 @@ const CandidateList = ({ selectedElection }) => {
   const handleCreateCandidate = async (e) => {
     e.preventDefault();
     if (!newCandidate.name || !newCandidate.faculty || !selectedElection) {
-      setMessage('❌ All fields are required');
+      toast.error('❌ All fields are required');
       return;
     }
 
@@ -66,11 +64,11 @@ const CandidateList = ({ selectedElection }) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setMessage('✅ Candidate added successfully');
+      toast.success('✅ Candidate added successfully');
       setNewCandidate({ name: '', faculty: '' });
       fetchCandidates();
     } catch {
-      setMessage('❌ Failed to add candidate');
+      toast.error('❌ Failed to add candidate');
     }
   };
 
@@ -80,9 +78,9 @@ const CandidateList = ({ selectedElection }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCandidates(candidates.filter((c) => c.id !== candidateId));
-      setMessage('✅ Candidate deleted successfully');
+      toast.success('✅ Candidate deleted successfully');
     } catch {
-      setMessage('❌ Failed to delete candidate');
+      toast.error('❌ Failed to delete candidate');
     }
   };
 
@@ -114,7 +112,6 @@ const CandidateList = ({ selectedElection }) => {
       )}
 
       {loading && <p>Loading candidates...</p>}
-      {message && <p className="error-message">{message}</p>}
 
       {!loading && candidates.length === 0 && (
         <p>No candidates available for this election.</p>

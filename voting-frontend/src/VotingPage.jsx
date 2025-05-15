@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuth from './hooks/useAuth';  // Import the useAuth hook
+import { toast } from 'react-toastify'; // ✅ Toastify
 import './VotingPage.css';
 
 const VotingPage = () => {
@@ -8,19 +9,12 @@ const VotingPage = () => {
   const [selectedElection, setSelectedElection] = useState('');
   const [candidates, setCandidates] = useState([]);
   const [vote, setVote] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { user, isAuthenticated } = useAuth(); // Access user and authentication status from context
   const token = localStorage.getItem('token');
 
-  // Use userFaculty from the user context
   const userFaculty = user?.faculty;
-
-  // Log to check if the necessary values are correct
-  console.log('📥 Selected election:', selectedElection);
-  console.log('🎓 User faculty:', userFaculty);
-  console.log('🔐 Token available:', !!token);
 
   useEffect(() => {
     const fetchElections = async () => {
@@ -29,15 +23,12 @@ const VotingPage = () => {
         const response = await axios.get('http://localhost:3000/api/elections', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        
-        // Check the API response for elections
-        console.log('API Response for Elections:', response.data);
 
+        console.log('API Response for Elections:', response.data);
         setElections(response.data.elections || []);
-        setMessage('');
       } catch (error) {
-        setMessage('❌ Failed to load elections');
         console.error('Error fetching elections:', error);
+        toast.error('❌ Failed to load elections'); // ✅ Toast
       } finally {
         setLoading(false);
       }
@@ -58,18 +49,16 @@ const VotingPage = () => {
           }
         );
 
-        // Log the response to check the candidates API result
         console.log('API Response for Candidates:', response.data);
 
-        const allCandidates = response.data.candidates;  // Accessing candidates property directly
+        const allCandidates = response.data.candidates;
         const eligibleCandidates = allCandidates.filter(candidate =>
           candidate.faculty === 'ALL' || candidate.faculty === userFaculty
         );
         setCandidates(eligibleCandidates);
-        setMessage('');
       } catch (error) {
-        setMessage('❌ Failed to load candidates');
         console.error('Error fetching candidates:', error);
+        toast.error('❌ Failed to load candidates'); // ✅ Toast
       } finally {
         setLoading(false);
       }
@@ -79,33 +68,28 @@ const VotingPage = () => {
 
   const handleVote = async () => {
     if (!vote || !selectedElection) {
-      setMessage('❌ Please select both an election and a candidate!');
+      toast.warning('❌ Please select both an election and a candidate!'); // ✅ Toast
       return;
     }
 
-    // Log the request body before submitting the vote
-    console.log('Vote Request Body:', { electionId: selectedElection, candidateId: vote });
-
-    // Token expiration check
     if (!token) {
-      setMessage('❌ Token is missing or expired. Please log in again.');
+      toast.error('❌ Token is missing or expired. Please log in again.'); // ✅ Toast
       return;
     }
 
-    setMessage('Submitting vote...');
     try {
       await axios.post(
         'http://localhost:3000/api/vote',
         { electionId: selectedElection, candidateId: vote },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setMessage('✅ Vote submitted successfully!');
+      toast.success('✅ Vote submitted successfully!'); // ✅ Toast
     } catch (error) {
-      console.error('Error submitting vote:', error); // Log the error details
+      console.error('Error submitting vote:', error);
       if (error.response && error.response.data) {
-        setMessage(`❌ ${error.response.data.message || 'Error submitting vote.'}`);
+        toast.error(`❌ ${error.response.data.message || 'Error submitting vote.'}`); // ✅ Toast
       } else {
-        setMessage('❌ Error submitting vote. You may have already voted or the election is closed.');
+        toast.error('❌ Error submitting vote. You may have already voted or the election is closed.'); // ✅ Toast
       }
     }
   };
@@ -137,8 +121,6 @@ const VotingPage = () => {
       <button onClick={handleVote} disabled={!vote || !selectedElection || loading}>
         Submit Vote
       </button>
-
-      {message && <p>{message}</p>}
     </div>
   );
 };

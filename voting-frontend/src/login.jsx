@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './context/UserContext'; // ✅ Import UserContext
+import { toast } from 'react-toastify'; // ✅ Toastify import
 import './login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const { setUser } = useContext(UserContext); // ✅ Access setUser from context
@@ -36,7 +36,7 @@ function Login() {
         const decoded = JSON.parse(atob(data.token.split('.')[1]));
         setUser(decoded); // ✅ Immediate context update
 
-        alert('Login successful!');
+        toast.success('Login successful!'); // ✅ Success toast
 
         // ✅ Redirect based on role
         if (decoded.role === 'admin') {
@@ -47,11 +47,11 @@ function Login() {
       } else {
         const errorMsg = data?.message || `Login failed: ${response.status}`;
         console.error('❌ Backend error:', errorMsg);
-        setError(errorMsg);
+        toast.error(errorMsg); // ✅ Error toast
       }
     } catch (err) {
       console.error('🚨 Network or server error:', err);
-      setError('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.'); // ✅ Error toast
     }
   };
 
@@ -59,7 +59,6 @@ function Login() {
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
-        {error && <p className="error">{error}</p>}
         <input
           type="email"
           placeholder="Email"

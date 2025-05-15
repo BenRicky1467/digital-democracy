@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './App.css'; // make sure this includes your button styles
+import './App.css';
+import { toast } from 'react-toastify';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -32,15 +33,15 @@ function Register() {
       const data = await response.json();
       setLoading(false);
       if (response.ok) {
-        alert('✅ Registered successfully!');
+        toast.success('✅ Registered successfully!');
         console.log('Registered user:', data);
       } else {
-        alert(`❌ Registration failed: ${data.message}`);
+        toast.error(`❌ Registration failed: ${data.message}`);
       }
     } catch (error) {
       setLoading(false);
       console.error('Error during registration:', error);
-      alert('❌ An error occurred during registration.');
+      toast.error('❌ An error occurred during registration.');
     }
   };
 

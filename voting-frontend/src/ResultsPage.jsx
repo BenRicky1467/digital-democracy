@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const ResultsPage = () => {
   const [elections, setElections] = useState([]);
   const [selectedElection, setSelectedElection] = useState('');
   const [results, setResults] = useState([]);
-  const [message, setMessage] = useState('');
 
   // Load elections on mount
   useEffect(() => {
@@ -16,7 +16,7 @@ const ResultsPage = () => {
         });
         setElections(response.data.elections || []);
       } catch (err) {
-        setMessage('❌ Failed to load elections.');
+        toast.error('❌ Failed to load elections.');
       }
     };
     fetchElections();
@@ -28,13 +28,15 @@ const ResultsPage = () => {
 
     const fetchResults = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/elections/${selectedElection}/results`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
+        const response = await axios.get(
+          `http://localhost:3000/api/elections/${selectedElection}/results`,
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          }
+        );
         setResults(response.data.results || []);
-        setMessage('');
       } catch (err) {
-        setMessage('❌ Failed to load results.');
+        toast.error('❌ Failed to load results.');
       }
     };
     fetchResults();
@@ -47,11 +49,11 @@ const ResultsPage = () => {
       <select onChange={e => setSelectedElection(e.target.value)} value={selectedElection}>
         <option value="">-- Select Election --</option>
         {elections.map(e => (
-          <option key={e.id} value={e.id}>{e.title} ({e.faculty})</option>
+          <option key={e.id} value={e.id}>
+            {e.title} ({e.faculty})
+          </option>
         ))}
       </select>
-
-      {message && <p>{message}</p>}
 
       {results.length > 0 && (
         <div>
@@ -66,7 +68,7 @@ const ResultsPage = () => {
         </div>
       )}
 
-      {results.length === 0 && selectedElection && !message && (
+      {results.length === 0 && selectedElection && (
         <p>No votes have been cast yet.</p>
       )}
     </div>

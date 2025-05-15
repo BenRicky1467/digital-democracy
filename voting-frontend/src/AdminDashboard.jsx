@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './AdminDashboard.css';
+import { toast } from 'react-toastify'; // ✅ Import toast
 
 function AdminDashboard() {
   const [elections, setElections] = useState([]);
@@ -17,6 +18,7 @@ function AdminDashboard() {
         setElections(response.data.elections || []);
       } catch (err) {
         console.error('Error fetching elections:', err);
+        toast.error('❌ Failed to fetch elections');
       }
     };
 
@@ -28,6 +30,7 @@ function AdminDashboard() {
         setCandidates(response.data.candidates || []);
       } catch (err) {
         console.error('Error fetching candidates:', err);
+        toast.error('❌ Failed to fetch candidates');
       }
     };
 
@@ -40,9 +43,11 @@ function AdminDashboard() {
       await axios.delete(`/api/elections/${electionId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-      setElections(elections.filter(election => election.id !== electionId));
+      setElections(elections.filter(e => e.id !== electionId));
+      toast.success('✅ Election deleted successfully');
     } catch (err) {
       console.error('Error deleting election:', err);
+      toast.error('❌ Failed to delete election');
     }
   };
 
@@ -51,9 +56,11 @@ function AdminDashboard() {
       await axios.delete(`/api/candidates/${candidateId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-      setCandidates(candidates.filter(candidate => candidate.id !== candidateId));
+      setCandidates(candidates.filter(c => c.id !== candidateId));
+      toast.success('✅ Candidate deleted successfully');
     } catch (err) {
       console.error('Error deleting candidate:', err);
+      toast.error('❌ Failed to delete candidate');
     }
   };
 

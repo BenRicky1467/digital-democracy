@@ -19,7 +19,11 @@ import ResultsPage from './ResultsPage';
 
 import './App.css';
 import useAuth from './hooks/useAuth.jsx';
-import { UserProvider } from './context/UserContext.jsx'; // ✅ Correct import
+import { UserProvider } from './context/UserContext.jsx';
+
+// ✅ Toastify imports
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const navigate = useNavigate();
@@ -28,11 +32,15 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    toast.info("Logged out successfully!"); // ✅ Toast on logout
     navigate('/login');
   };
 
   return (
     <div className="app-container">
+      {/* ✅ Global Toast Handler */}
+      <ToastContainer position="top-right" autoClose={3000} />
+
       {location.pathname === '/register' && (
         <>
           <h1>Welcome to Digital Democracy</h1>
@@ -100,7 +108,7 @@ function App() {
 
 export default function AppWrapper() {
   return (
-    <UserProvider> {/* ✅ Ensures UserContext is available */}
+    <UserProvider>
       <Router>
         <App />
       </Router>

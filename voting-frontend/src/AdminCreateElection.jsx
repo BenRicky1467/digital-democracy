@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AdminCreateElection.css';
 import CandidateList from './CandidateList';
+import { toast } from 'react-toastify'; // ✅ Toastify import
 
 const AdminCreateElection = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [electionDate, setElectionDate] = useState('');
   const [faculty, setFaculty] = useState('');
-  const [message, setMessage] = useState('');
-  const [electionId, setElectionId] = useState(null); // New state for created election ID
+  const [electionId, setElectionId] = useState(null); // For created election ID
 
-  // Handle election creation
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,19 +24,19 @@ const AdminCreateElection = () => {
           },
         }
       );
-      setMessage('✅ Election created successfully!');
+      toast.success('✅ Election created successfully!'); // ✅ Toast
       setTitle('');
       setDescription('');
       setElectionDate('');
       setFaculty('');
-      setElectionId(response.data.electionId); // Save the election ID
+      setElectionId(response.data.electionId);
     } catch (error) {
-      setMessage('❌ Failed to create election');
+      console.error('❌ Error creating election:', error);
+      toast.error('❌ Failed to create election'); // ✅ Toast
       setElectionId(null);
     }
   };
 
-  // Handle election deletion
   const handleDeleteElection = async () => {
     if (!electionId) return;
 
@@ -53,10 +52,11 @@ const AdminCreateElection = () => {
             },
           }
         );
-        setMessage('✅ Election deleted successfully!');
-        setElectionId(null); // Reset election ID after deletion
+        toast.success('✅ Election deleted successfully!'); // ✅ Toast
+        setElectionId(null);
       } catch (error) {
-        setMessage('❌ Failed to delete election');
+        console.error('❌ Error deleting election:', error);
+        toast.error('❌ Failed to delete election'); // ✅ Toast
       }
     }
   };
@@ -109,10 +109,6 @@ const AdminCreateElection = () => {
 
         <button type="submit" className="submit-btn">Create</button>
       </form>
-
-      {message && (
-        <p className={`message ${message.startsWith('❌') ? 'error' : 'success'}`}>{message}</p>
-      )}
 
       {electionId && (
         <div>
