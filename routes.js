@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { registerUser, loginUser } = require('./auth');
 const db = require('./db');
+const { registerAndEnrollUser } = require('./registerUser');  // <--  Fabric helper function
 
 dotenv.config();
 
@@ -40,6 +41,26 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ message: '✅ User registered', user: newUser });
   } catch (err) {
     res.status(500).json({ message: '❌ Registration failed', error: err.message });
+  }
+});
+
+
+// Fabric CA user registration route
+router.post('/fabric-register', authenticateToken, async (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ message: 'Username is required' });
+  }
+
+  try {
+    // Call the Fabric function to register & enroll the user
+    await registerAndEnrollUser(username);
+
+    res.status(200).json({ message: `User ${username} registered on Fabric CA successfully.` });
+  } catch (error) {
+    console.error('Fabric registration error:', error);
+    res.status(500).json({ message: 'Fabric user registration failed', error: error.message });
   }
 });
 

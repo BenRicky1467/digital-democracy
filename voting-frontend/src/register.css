@@ -13,6 +13,7 @@
 .register-container form input,
 .register-container form select {
   width: 100%;
+  height: 150%;
   margin-bottom: 12px;
   padding: 10px;
   font-size: 16px;

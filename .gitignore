@@ -20,3 +20,4 @@ build/
 # Others (optional: editor files)
 *.swp
 
+fabric-samples/

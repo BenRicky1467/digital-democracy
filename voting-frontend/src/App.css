@@ -1,9 +1,14 @@
 .app-container {
   text-align: center;
   padding: 50px;
+  
 }
 
 h1 {
+  color: #007bff;
+}
+
+.form h2 {
   color: #007bff;
 }
 
@@ -18,9 +23,11 @@ p {
   overflow: hidden;
   white-space: nowrap;
   box-sizing: border-box;
-  animation: marquee 10s linear infinite;
+  animation: marquee 15s linear infinite; /* Increase time to slow it down */
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #d63384; /* Pinkish highlight for style */
+  color: rgb(44, 88, 207); /* Perfect red color */
+  letter-spacing: 4px; /* Optional spacing between letters */ 
 }
 
 @keyframes marquee {
@@ -30,8 +37,10 @@ p {
 .register-button {
   padding: 10px 20px;
   font-size: 16px;
+  width: 50%;
+  height: 8vh;
   background-color: #007bff;
-  color: white;
+  color: rgb(231, 220, 220);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -41,4 +50,42 @@ p {
 .register-button:hover {
   background-color: #0056b3;
 }
+
+.form {
+  background-color: white;
+}
  
+input {
+  width: 90%;
+  height: 5vh;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: lightblue;
+  background-color: lightblue;
+}
+
+select option {
+  width: 7%;
+  height: 7vh;
+  border-radius: 10px;
+  border-color: white;
+}
+
+nav {
+  padding: 20px;
+  background-color: lightblue;
+  width: 100%s;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  background: #0056b3;
+  font-weight: bolder;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+

@@ -2,7 +2,10 @@
 .admin-dashboard-container {
   padding: 2rem;
   text-align: center;
+  background-color: lightblue;
+  border-radius: 10px;
 }
+
 
 /* Button container for admin actions */
 .admin-buttons {

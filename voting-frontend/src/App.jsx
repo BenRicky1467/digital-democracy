@@ -43,8 +43,8 @@ function App() {
 
       {location.pathname === '/register' && (
         <>
-          <h1>Welcome to Digital Democracy</h1>
-          <p className="marquee">Your Vote! Your Right! Your Leadership!</p>
+          <h1>Welcome to Online Voting System</h1>
+          <p className="marquee">YOUR VOTE!         YOUR RIGHT!          YOUR LEADERSHIP!</p>
         </>
       )}
 
@@ -69,7 +69,7 @@ function App() {
                 background: 'none',
                 border: 'none',
                 color: 'blue',
-                textDecoration: 'underline'
+                textDecoration: 'none'
               }}
             >
               Logout

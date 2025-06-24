@@ -55,7 +55,7 @@ function Register() {
         onChange={handleChange}
         placeholder="Username"
         required
-      />
+      /> <br /><br />
       <input
         type="email"
         name="email"
@@ -63,7 +63,7 @@ function Register() {
         onChange={handleChange}
         placeholder="Email"
         required
-      />
+      /> <br /><br />
       <input
         type="password"
         name="password"
@@ -71,7 +71,7 @@ function Register() {
         onChange={handleChange}
         placeholder="Password"
         required
-      />
+      /> <br /> <br />
       <select name="faculty" value={formData.faculty} onChange={handleChange}>
         <option value="BCS">BCS</option>
         <option value="BFIT">BFIT</option>

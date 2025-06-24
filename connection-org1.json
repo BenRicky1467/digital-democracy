@@ -1,0 +1,35 @@
+{
+  "name": "fabric-network",
+  "version": "1.0.0",
+  "client": {
+    "organization": "Org1",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "organizations": {
+    "Org1": {
+      "mspid": "Org1MSP",
+      "certificateAuthorities": [
+        "ca.org1.example.com"
+      ]
+    }
+  },
+  "certificateAuthorities": {
+    "ca.org1.example.com": {
+      "url": "http://localhost:7054",
+      "caName": "ca-org1",
+      "tlsCACerts": {
+        "pem": [
+          "-----BEGIN CERTIFICATE-----\nYOUR_CA_CERT_HERE\n-----END CERTIFICATE-----"
+        ]
+      }
+    }
+  }
+}
+
